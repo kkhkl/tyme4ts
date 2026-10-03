@@ -5,7 +5,7 @@ import {SolarDay, ThreePillars} from '../lib';
 @suite
 class ThreePillarsTest {
     @test
-    test() {
+    test(): void {
         const threePillars: ThreePillars = new ThreePillars('甲戌', '甲戌', '甲戌');
         const dayList: string[] = [];
         threePillars.getSolarDays(1, 2200).forEach(day => {
@@ -35,7 +35,7 @@ class ThreePillarsTest {
     }
 
     @test
-    test1() {
+    test1(): void {
         equal(SolarDay.fromYmd(1034, 10, 2).getSixtyCycleDay().getThreePillars().getName(), '甲戌 甲戌 甲戌');
     }
 }

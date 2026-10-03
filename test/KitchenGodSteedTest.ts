@@ -28,4 +28,19 @@ class KitchenGodSteedTest {
     test3(): void {
         equal(KitchenGodSteed.fromLunarYear(2018).getGold(), '三日得金');
     }
+
+    @test
+    test4(): void {
+        const k: KitchenGodSteed = KitchenGodSteed.fromLunarYear(2018);
+        equal(k.getMouse(), '十鼠偷粮');
+        equal(k.getGrass(), '草子十分');
+        equal(k.getFlower(), '花收一分');
+        equal(k.getHorse(), '四马驮谷');
+        equal(k.getChicken(), '七鸡抢米');
+        equal(k.getSilkworm(), '七姑看蚕');
+        equal(k.getPig(), '九屠共猪');
+        equal(k.getField(), '甲田六分');
+        equal(k.getPeopleCakes(), '十二人八丙');
+        equal(k.getPeopleHoes(), '十二人九锄');
+    }
 }

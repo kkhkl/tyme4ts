@@ -5,17 +5,20 @@ import {equal} from 'assert';
 @suite
 class SixtyCycleMonthTest {
     @test
-    test0() {
-        const m = SixtyCycleMonth.fromIndex(2025, 0);
+    test0(): void {
+        const m: SixtyCycleMonth = SixtyCycleMonth.fromIndex(2025, 0);
         equal(m.toString(), '乙巳年戊寅月');
     }
 
     @test
-    test1() {
-        const m = SixtyCycleMonth.fromIndex(1150, 0);
-        equal('庚午年戊寅月', m.toString());
-        equal(0, m.getIndexInYear());
-        equal('1150年1月30日', SolarTerm.fromIndex(1150, 3).getSolarDay());
-        equal('庚午年戊寅月戊寅日', m.getFirstDay().toString());
+    test1(): void {
+        const m: SixtyCycleMonth = SixtyCycleMonth.fromIndex(1150, 0);
+        equal(m.toString(), '庚午年戊寅月');
+        equal(m.getIndexInYear(), 0);
+        equal(SolarTerm.fromIndex(1150, 3).getSolarDay(), '1150年1月30日');
+        equal(m.getFirstDay().toString(), '庚午年戊寅月戊寅日');
+        equal(m.getDays().length, 30);
+        equal(m.getNineStar().toString(), '八白土');
+        equal(m.getJupiterDirection().getName(), '东北');
     }
 }

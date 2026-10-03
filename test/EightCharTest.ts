@@ -24,7 +24,7 @@ class EightCharTest {
      * 十神
      */
     @test
-    test1() {
+    test1(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('丙寅'),
@@ -76,7 +76,7 @@ class EightCharTest {
      * 地势(长生十二神)
      */
     @test
-    test2() {
+    test2(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('丙寅'),
@@ -111,7 +111,7 @@ class EightCharTest {
      * 胎元/胎息/命宫
      */
     @test
-    test3() {
+    test3(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('癸卯'),
@@ -131,7 +131,7 @@ class EightCharTest {
      * 胎息
      */
     @test
-    test4() {
+    test4(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('癸卯'),
@@ -151,7 +151,7 @@ class EightCharTest {
      * 命宫
      */
     @test
-    test5() {
+    test5(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('癸卯'),
@@ -171,7 +171,7 @@ class EightCharTest {
      * 身宫
      */
     @test
-    test6() {
+    test6(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('癸卯'),
@@ -191,7 +191,7 @@ class EightCharTest {
      * 地势(长生十二神)
      */
     @test
-    test7() {
+    test7(): void {
         // 八字
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('乙酉'),
@@ -216,7 +216,7 @@ class EightCharTest {
      * 公历时刻转八字
      */
     @test
-    test8() {
+    test8(): void {
         const eightChar: EightChar = SolarTime.fromYmdHms(2005, 12, 23, 8, 37, 0).getLunarHour().getEightChar();
         equal(eightChar.getYear().getName(), '乙酉');
         equal(eightChar.getMonth().getName(), '戊子');
@@ -225,7 +225,7 @@ class EightCharTest {
     }
 
     @test
-    test9() {
+    test9(): void {
         const eightChar: EightChar = SolarTime.fromYmdHms(1988, 2, 15, 23, 30, 0).getLunarHour().getEightChar();
         equal(eightChar.getYear().getName(), '戊辰');
         equal(eightChar.getMonth().getName(), '甲寅');
@@ -237,7 +237,7 @@ class EightCharTest {
      * 童限测试
      */
     @test
-    test11() {
+    test11(): void {
         const childLimit: ChildLimit = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(2022, 3, 9, 20, 51, 0), Gender.MAN);
         equal(childLimit.getYearCount(), 8);
         equal(childLimit.getMonthCount(), 9);
@@ -251,7 +251,7 @@ class EightCharTest {
      * 童限测试
      */
     @test
-    test12() {
+    test12(): void {
         const childLimit: ChildLimit = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(2018, 6, 11, 9, 30, 0), Gender.WOMAN);
         equal(childLimit.getYearCount(), 1);
         equal(childLimit.getMonthCount(), 9);
@@ -265,7 +265,7 @@ class EightCharTest {
      * 大运测试
      */
     @test
-    test13() {
+    test13(): void {
         // 童限
         const childLimit: ChildLimit = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1983, 2, 15, 20, 0, 0), Gender.WOMAN);
         // 八字
@@ -316,7 +316,7 @@ class EightCharTest {
     }
 
     @test
-    test14() {
+    test14(): void {
         // 童限
         const childLimit: ChildLimit = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1992, 2, 2, 12, 0, 0), Gender.MAN);
         // 八字
@@ -344,10 +344,14 @@ class EightCharTest {
         equal(decadeFortune.getStartSixtyCycleYear().getYear(), 2001);
         // 结束年
         equal(decadeFortune.getEndSixtyCycleYear().getYear(), 2010);
+        // 结束农历年(勿用)
+        equal(decadeFortune.getEndLunarYear().getYear(), 2009);
         // 干支
         equal(decadeFortune.getName(), '庚子');
         // 下一大运
         equal(decadeFortune.next(1).getName(), '己亥');
+        // 开始小运
+        equal(decadeFortune.getStartFortune().getName(), '戊申');
 
         // 小运
         const fortune: Fortune = childLimit.getStartFortune();
@@ -355,6 +359,8 @@ class EightCharTest {
         equal(fortune.getAge(), 10);
         // 干支年
         equal(fortune.getSixtyCycleYear().getYear(), 2001);
+        // 农历年（勿用）
+        equal(fortune.getLunarYear().getYear(), 2000);
         // 干支
         equal(fortune.getName(), '戊申');
         // 小运推移
@@ -366,12 +372,12 @@ class EightCharTest {
     }
 
     @test
-    test15() {
+    test15(): void {
         equal(SolarTime.fromYmdHms(2018, 8, 8, 8, 8, 0).getLunarHour().getEightChar().toString(), '戊戌 庚申 壬申 甲辰');
     }
 
     @test
-    test16() {
+    test16(): void {
         // 童限
         const childLimit: ChildLimit = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1990, 3, 15, 10, 30, 0), Gender.MAN);
         // 八字
@@ -384,6 +390,10 @@ class EightCharTest {
         equal(childLimit.getDayCount(), 23);
         // 童限结束(即开始起运)的公历时刻
         equal(childLimit.getEndTime().toString(), '1997年3月11日 00:22:00');
+        equal(childLimit.getGender(), Gender.MAN);
+        equal(childLimit.getStartAge(), 1);
+        equal(childLimit.getEndAge(), 7);
+        equal(childLimit.getDecadeFortune().getName(), '己卯');
 
         // 小运
         const fortune: Fortune = childLimit.getStartFortune();
@@ -392,7 +402,7 @@ class EightCharTest {
     }
 
     @test
-    test17() {
+    test17(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('己丑'),
             SixtyCycle.fromName('戊辰'),
@@ -403,7 +413,7 @@ class EightCharTest {
     }
 
     @test
-    test18() {
+    test18(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('戊戌'),
             SixtyCycle.fromName('庚申'),
@@ -414,7 +424,7 @@ class EightCharTest {
     }
 
     @test
-    test19() {
+    test19(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('甲子'),
             SixtyCycle.fromName('壬申'),
@@ -425,14 +435,14 @@ class EightCharTest {
     }
 
     @test
-    test20() {
+    test20(): void {
         const eightChar: EightChar = ChildLimit.fromSolarTime(SolarTime.fromYmdHms(2024, 1, 29, 9, 33, 0), Gender.MAN).getEightChar();
         equal(eightChar.getOwnSign().getName(), '癸亥');
         equal(eightChar.getBodySign().getName(), '己未');
     }
 
     @test
-    test21() {
+    test21(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('辛亥'),
             SixtyCycle.fromName('乙未'),
@@ -443,37 +453,37 @@ class EightCharTest {
     }
 
     @test
-    test22() {
+    test22(): void {
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1990, 1, 27, 0, 0, 0), Gender.MAN).getEightChar().getBodySign().getName(), '丙寅');
     }
 
     @test
-    test23() {
+    test23(): void {
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(2019, 3, 7, 8, 0, 0), Gender.MAN).getEightChar().getOwnSign().getName(), '甲戌');
     }
 
     @test
-    test24() {
+    test24(): void {
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(2019, 3, 27, 2, 0, 0), Gender.MAN).getEightChar().getOwnSign().getName(), '丁丑');
     }
 
     @test
-    test25() {
+    test25(): void {
         equal(LunarHour.fromYmdHms(1994, 5, 20, 18, 0, 0).getEightChar().getOwnSign().getName(), '丙寅');
     }
 
     @test
-    test26() {
+    test26(): void {
         equal(SolarTime.fromYmdHms(1986, 5, 29, 13, 37, 0).getLunarHour().getEightChar().getBodySign().getName(), '辛丑');
     }
 
     @test
-    test27() {
+    test27(): void {
         equal(SolarTime.fromYmdHms(1994, 12, 6, 2, 0, 0).getLunarHour().getEightChar().getBodySign().getName(), '丁丑');
     }
 
     @test
-    test28() {
+    test28(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('辛亥'),
             SixtyCycle.fromName('丁酉'),
@@ -484,7 +494,7 @@ class EightCharTest {
     }
 
     @test
-    test29() {
+    test29(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('丙寅'),
             SixtyCycle.fromName('庚寅'),
@@ -493,15 +503,16 @@ class EightCharTest {
         );
         equal(eightChar.getOwnSign().getName(), '己亥');
         equal(eightChar.getBodySign().getName(), '乙未');
+        equal(eightChar.getDuty().getName(), '除');
     }
 
     @test
-    test30() {
+    test30(): void {
         equal(new EightChar('壬子', '辛亥', '壬戌', '乙巳').getBodySign().getName(), '乙巳');
     }
 
     @test
-    test31() {
+    test31(): void {
         // 采用元亨利贞的起运算法
         ChildLimit.provider = new China95ChildLimitProvider();
         // 童限
@@ -524,7 +535,7 @@ class EightCharTest {
     }
 
     @test
-    test46() {
+    test46(): void {
         LunarHour.provider = new LunarSect2EightCharProvider();
 
         const eightChar: EightChar = new EightChar(
@@ -543,7 +554,7 @@ class EightCharTest {
     }
 
     @test
-    test47() {
+    test47(): void {
         // 采用Lunar流派1的起运算法
         ChildLimit.provider = new LunarSect1ChildLimitProvider();
         // 童限
@@ -566,7 +577,7 @@ class EightCharTest {
     }
 
     @test
-    test48() {
+    test48(): void {
         // 采用Lunar流派2的起运算法
         ChildLimit.provider = new LunarSect2ChildLimitProvider();
         // 童限
@@ -589,7 +600,7 @@ class EightCharTest {
     }
 
     @test
-    test49() {
+    test49(): void {
         // 采用Lunar流派2的八字算法
         LunarHour.provider = new LunarSect2EightCharProvider();
         // 童限
@@ -600,7 +611,7 @@ class EightCharTest {
     }
 
     @test
-    test50() {
+    test50(): void {
         // 采用Lunar流派2的八字算法
         LunarHour.provider = new LunarSect2EightCharProvider();
         // 童限
@@ -611,7 +622,7 @@ class EightCharTest {
     }
 
     @test
-    test51() {
+    test51(): void {
         const eightChar: EightChar = new EightChar(
             SixtyCycle.fromName('壬申'),
             SixtyCycle.fromName('壬寅'),
@@ -626,19 +637,19 @@ class EightCharTest {
     }
 
     @test
-    test52() {
+    test52(): void {
         equal(SolarTime.fromYmdHms(1034, 10, 2, 20, 0, 0).getLunarHour().getEightChar().toString(), '甲戌 癸酉 甲戌 甲戌');
     }
 
     @test
-    test53() {
+    test53(): void {
         equal(SolarTime.fromYmdHms(1981, 9, 5, 0, 0, 0).getLunarHour().toString(), '农历辛酉年八月初八戊子时');
         equal(SolarTime.fromYmdHms(1981, 9, 5, 0, 0, 0).getLunarHour().getEightChar().toString(), '辛酉 丙申 丙戌 戊子');
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1981, 9, 5, 0, 0, 0), Gender.MAN).getEightChar().toString(), '辛酉 丙申 丙戌 戊子');
     }
 
     @test
-    test54() {
+    test54(): void {
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(198, 11, 26, 15, 13, 59), Gender.MAN).getEightChar().toString(), '戊寅 癸亥 庚申 甲申');
         equal(ChildLimit.fromSolarTime(SolarTime.fromYmdHms(1981, 1, 26, 15, 13, 59), Gender.MAN).getEightChar().toString(), '庚申 己丑 甲辰 壬申');
     }

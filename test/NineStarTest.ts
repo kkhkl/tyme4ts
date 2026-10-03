@@ -93,4 +93,9 @@ class NineStarTest {
         const m: LunarMonth = LunarMonth.fromYm(2024, 11);
         equal(m.getNineStar().toString(), '四绿木');
     }
+
+    @test
+    test13(): void {
+        equal(NineStar.fromName('一').getIndex(), 0);
+    }
 }

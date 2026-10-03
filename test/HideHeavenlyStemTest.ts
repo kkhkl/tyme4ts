@@ -5,7 +5,7 @@ import {equal} from 'assert';
 @suite
 class HideHeavenlyStemTest {
     @test
-    test0() {
+    test0(): void {
         const d: HideHeavenStemDay = SolarDay.fromYmd(2024, 12, 4).getHideHeavenStemDay();
         equal(d.getHideHeavenStem().getType(), HideHeavenStemType.MAIN);
         equal(d.getHideHeavenStem().getName(), '壬');
@@ -18,7 +18,7 @@ class HideHeavenlyStemTest {
     }
 
     @test
-    test1() {
+    test1(): void {
         const d: HideHeavenStemDay = SolarDay.fromYmd(2024, 11, 7).getHideHeavenStemDay();
         equal(d.getHideHeavenStem().getType(), HideHeavenStemType.RESIDUAL);
         equal(d.getHideHeavenStem().getName(), '戊');

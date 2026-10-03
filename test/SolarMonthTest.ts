@@ -5,15 +5,15 @@ import {equal} from 'assert';
 @suite
 class SolarMonthTest {
     @test
-    test0() {
-        const m = SolarMonth.fromYm(2019, 5);
+    test0(): void {
+        const m: SolarMonth = SolarMonth.fromYm(2019, 5);
         equal(m.getName(), '5月');
         equal(m.toString(), '2019年5月');
     }
 
     @test
-    test1() {
-        const m = SolarMonth.fromYm(2023, 1);
+    test1(): void {
+        const m: SolarMonth = SolarMonth.fromYm(2023, 1);
         equal(m.getWeekCount(0), 5);
         equal(m.getWeekCount(1), 6);
         equal(m.getWeekCount(2), 6);
@@ -24,8 +24,8 @@ class SolarMonthTest {
     }
 
     @test
-    test2() {
-        const m = SolarMonth.fromYm(2023, 2);
+    test2(): void {
+        const m: SolarMonth = SolarMonth.fromYm(2023, 2);
         equal(m.getWeekCount(0), 5);
         equal(m.getWeekCount(1), 5);
         equal(m.getWeekCount(2), 5);
@@ -33,18 +33,21 @@ class SolarMonthTest {
         equal(m.getWeekCount(4), 5);
         equal(m.getWeekCount(5), 5);
         equal(m.getWeekCount(6), 5);
+        equal(m.getWeeks(0).length, 5);
+        equal(m.getDays().length, 28);
     }
 
     @test
-    test3() {
-        const m = SolarMonth.fromYm(2023, 10).next(1);
+    test3(): void {
+        const m: SolarMonth = SolarMonth.fromYm(2023, 10).next(1);
         equal(m.getName(), '11月');
         equal(m.toString(), '2023年11月');
+        equal(m.getSeason().toString(), '2023年四季度');
     }
 
     @test
-    test4() {
-        const m = SolarMonth.fromYm(2023, 10);
+    test4(): void {
+        const m: SolarMonth = SolarMonth.fromYm(2023, 10);
         equal(m.next(2).toString(), '2023年12月');
         equal(m.next(3).toString(), '2024年1月');
         equal(m.next(-5).toString(), '2023年5月');

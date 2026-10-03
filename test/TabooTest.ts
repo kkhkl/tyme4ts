@@ -1,11 +1,11 @@
 import {suite, test} from '@testdeck/mocha';
-import {SolarDay, SolarTime} from '../lib';
-import {deepEqual} from 'assert';
+import {SolarDay, SolarTime, Taboo} from '../lib';
+import {deepEqual, equal} from 'assert';
 
 @suite
 class TabooTest {
     @test
-    test0() {
+    test0(): void {
         const taboos: string[] = [];
         SolarDay.fromYmd(2024, 6, 26).getLunarDay().getRecommends().forEach(t => {
             taboos.push(t.getName());
@@ -15,7 +15,7 @@ class TabooTest {
     }
 
     @test
-    test1() {
+    test1(): void {
         const taboos: string[] = [];
         SolarDay.fromYmd(2024, 6, 26).getLunarDay().getAvoids().forEach(t => {
             taboos.push(t.getName());
@@ -25,7 +25,7 @@ class TabooTest {
     }
 
     @test
-    test2() {
+    test2(): void {
         const taboos: string[] = [];
         SolarTime.fromYmdHms(2024, 6, 25, 4, 0, 0).getLunarHour().getRecommends().forEach(t => {
             taboos.push(t.getName());
@@ -35,7 +35,7 @@ class TabooTest {
     }
 
     @test
-    test3() {
+    test3(): void {
         const taboos: string[] = [];
         SolarTime.fromYmdHms(2024, 6, 25, 4, 0, 0).getLunarHour().getAvoids().forEach(t => {
             taboos.push(t.getName());
@@ -45,7 +45,7 @@ class TabooTest {
     }
 
     @test
-    test4() {
+    test4(): void {
         const taboos: string[] = [];
         SolarTime.fromYmdHms(2024, 4, 22, 0, 0, 0).getLunarHour().getRecommends().forEach(t => {
             taboos.push(t.getName());
@@ -55,7 +55,7 @@ class TabooTest {
     }
 
     @test
-    test5() {
+    test5(): void {
         const taboos: string[] = [];
         SolarTime.fromYmdHms(2024, 4, 22, 0, 0, 0).getLunarHour().getAvoids().forEach(t => {
             taboos.push(t.getName());
@@ -65,13 +65,18 @@ class TabooTest {
     }
 
     @test
-    test6() {
+    test6(): void {
         const taboos: string[] = [];
         SolarDay.fromYmd(2021, 3, 7).getLunarDay().getRecommends().forEach(t => {
             taboos.push(t.getName());
         });
 
         deepEqual(taboos, ['裁衣', '经络', '伐木', '开柱眼', '拆卸', '修造', '动土', '上梁', '合脊', '合寿木', '入殓', '除服', '成服', '移柩', '破土', '安葬', '启钻', '修坟', '立碑']);
+    }
+
+    @test
+    test7(): void {
+        equal(Taboo.fromName('祭祀').getIndex(), 0);
     }
 
 }

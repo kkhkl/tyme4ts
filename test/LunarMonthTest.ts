@@ -1,11 +1,11 @@
 import {suite, test} from '@testdeck/mocha';
 import {LunarDay, LunarMonth, SolarDay} from '../lib';
-import {equal} from 'assert';
+import {equal, ifError} from 'assert';
 
 @suite
 class LunarMonthTest {
     @test
-    test0() {
+    test0(): void {
         equal(LunarMonth.fromYm(2359, 7).getName(), '七月');
     }
 
@@ -13,161 +13,169 @@ class LunarMonthTest {
      * 闰月
      */
     @test
-    test1() {
-        equal(LunarMonth.fromYm(2359, -7).getName(), '闰七月');
+    test1(): void {
+        const m: LunarMonth = LunarMonth.fromYm(2359, -7);
+        equal(m.getName(), '闰七月');
+        equal(m.getMonthValue(), -7);
+        equal(m.getMonthWithLeap(), -7);
+        equal(m.getSeason().getName(), '孟秋');
+        equal(m.getDays().length, 30);
+        equal(m.getWeeks(0).length, 5);
+        equal(m.getJupiterDirection().getName(), '西南');
+        ifError(m.getFetus());
     }
 
     @test
-    test2() {
+    test2(): void {
         equal(LunarMonth.fromYm(2023, 6).getDayCount(), 29);
     }
 
     @test
-    test3() {
+    test3(): void {
         equal(LunarMonth.fromYm(2023, 7).getDayCount(), 30);
     }
 
     @test
-    test4() {
+    test4(): void {
         equal(LunarMonth.fromYm(2023, 8).getDayCount(), 30);
     }
 
     @test
-    test5() {
+    test5(): void {
         equal(LunarMonth.fromYm(2023, 9).getDayCount(), 29);
     }
 
     @test
-    test6() {
+    test6(): void {
         equal(LunarMonth.fromYm(2023, 9).getFirstJulianDay().getSolarDay().toString(), '2023年10月15日');
     }
 
     @test
-    test7() {
+    test7(): void {
         equal(LunarMonth.fromYm(2023, 1).getSixtyCycle().getName(), '甲寅');
     }
 
     @test
-    test8() {
+    test8(): void {
         equal(LunarMonth.fromYm(2023, -2).getSixtyCycle().getName(), '乙卯');
     }
 
     @test
-    test9() {
+    test9(): void {
         equal(LunarMonth.fromYm(2023, 3).getSixtyCycle().getName(), '丙辰');
     }
 
     @test
-    test10() {
+    test10(): void {
         equal(LunarMonth.fromYm(2024, 1).getSixtyCycle().getName(), '丙寅');
     }
 
     @test
-    test11() {
+    test11(): void {
         equal(LunarMonth.fromYm(2023, 12).getSixtyCycle().getName(), '乙丑');
     }
 
     @test
-    test12() {
+    test12(): void {
         equal(LunarMonth.fromYm(2022, 1).getSixtyCycle().getName(), '壬寅');
     }
 
     @test
-    test13() {
+    test13(): void {
         equal(LunarMonth.fromYm(37, -12).getName(), '闰十二月');
     }
 
     @test
-    test14() {
+    test14(): void {
         equal(LunarMonth.fromYm(5552, -12).getName(), '闰十二月');
     }
 
     @test
-    test15() {
+    test15(): void {
         equal(LunarMonth.fromYm(2008, 11).next(1).toString(), '农历戊子年十二月');
     }
 
     @test
-    test16() {
+    test16(): void {
         equal(LunarMonth.fromYm(2008, 11).next(2).toString(), '农历己丑年正月');
     }
 
     @test
-    test17() {
+    test17(): void {
         equal(LunarMonth.fromYm(2008, 11).next(6).toString(), '农历己丑年五月');
     }
 
     @test
-    test18() {
+    test18(): void {
         equal(LunarMonth.fromYm(2008, 11).next(7).toString(), '农历己丑年闰五月');
     }
 
     @test
-    test19() {
+    test19(): void {
         equal(LunarMonth.fromYm(2008, 11).next(8).toString(), '农历己丑年六月');
     }
 
     @test
-    test20() {
+    test20(): void {
         equal(LunarMonth.fromYm(2008, 11).next(15).toString(), '农历庚寅年正月');
     }
 
     @test
-    test21() {
+    test21(): void {
         equal(LunarMonth.fromYm(2008, 12).next(-1).toString(), '农历戊子年十一月');
     }
 
     @test
-    test22() {
+    test22(): void {
         equal(LunarMonth.fromYm(2009, 1).next(-2).toString(), '农历戊子年十一月');
     }
 
     @test
-    test23() {
+    test23(): void {
         equal(LunarMonth.fromYm(2009, 5).next(-6).toString(), '农历戊子年十一月');
     }
 
     @test
-    test24() {
+    test24(): void {
         equal(LunarMonth.fromYm(2009, -5).next(-7).toString(), '农历戊子年十一月');
     }
 
     @test
-    test25() {
+    test25(): void {
         equal(LunarMonth.fromYm(2009, 6).next(-8).toString(), '农历戊子年十一月');
     }
 
     @test
-    test26() {
+    test26(): void {
         equal(LunarMonth.fromYm(2010, 1).next(-15).toString(), '农历戊子年十一月');
     }
 
     @test
-    test27() {
+    test27(): void {
         equal(LunarMonth.fromYm(2012, -4).getDayCount(), 29);
     }
 
     @test
-    test28() {
+    test28(): void {
         equal(LunarMonth.fromYm(2023, 9).getSixtyCycle().toString(), '壬戌');
     }
 
     @test
-    test29() {
+    test29(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 10, 7).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '辛酉');
         equal(d.getSixtyCycleDay().getMonth().toString(), '辛酉');
     }
 
     @test
-    test30() {
+    test30(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 10, 8).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '辛酉');
         equal(d.getSixtyCycleDay().getMonth().toString(), '壬戌');
     }
 
     @test
-    test31() {
+    test31(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 10, 15).getLunarDay();
         equal(d.getLunarMonth().getName(), '九月');
         equal(d.getLunarMonth().getSixtyCycle().toString(), '壬戌');
@@ -175,21 +183,21 @@ class LunarMonthTest {
     }
 
     @test
-    test32() {
+    test32(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 11, 7).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '壬戌');
         equal(d.getSixtyCycleDay().getMonth().toString(), '壬戌');
     }
 
     @test
-    test33() {
+    test33(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 11, 8).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '壬戌');
         equal(d.getSixtyCycleDay().getMonth().toString(), '癸亥');
     }
 
     @test
-    test34() {
+    test34(): void {
         // 2023年闰2月
         const m: LunarMonth = LunarMonth.fromYm(2023, 12);
         equal(m.toString(), '农历癸卯年十二月');
@@ -198,7 +206,7 @@ class LunarMonthTest {
     }
 
     @test
-    test35() {
+    test35(): void {
         // 2023年闰2月
         const m: LunarMonth = LunarMonth.fromYm(2023, 3);
         equal(m.toString(), '农历癸卯年三月');
@@ -210,50 +218,50 @@ class LunarMonthTest {
     }
 
     @test
-    test36() {
+    test36(): void {
         const d: LunarDay = SolarDay.fromYmd(1983, 2, 15).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '甲寅');
         equal(d.getSixtyCycleDay().getMonth().toString(), '甲寅');
     }
 
     @test
-    test37() {
+    test37(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 10, 30).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '壬戌');
         equal(d.getSixtyCycleDay().getMonth().toString(), '壬戌');
     }
 
     @test
-    test38() {
+    test38(): void {
         const d: LunarDay = SolarDay.fromYmd(2023, 10, 19).getLunarDay();
         equal(d.getLunarMonth().getSixtyCycle().toString(), '壬戌');
         equal(d.getSixtyCycleDay().getMonth().toString(), '壬戌');
     }
 
     @test
-    test39() {
+    test39(): void {
         const m: LunarMonth = LunarMonth.fromYm(2023, 11);
         equal(m.toString(), '农历癸卯年十一月');
         equal(m.getSixtyCycle().toString(), '甲子');
     }
 
     @test
-    test40() {
+    test40(): void {
         equal(LunarMonth.fromYm(2018, 6).getSixtyCycle().toString(), '己未');
     }
 
     @test
-    test41() {
+    test41(): void {
         equal(LunarMonth.fromYm(2017, 12).getSixtyCycle().toString(), '癸丑');
     }
 
     @test
-    test42() {
+    test42(): void {
         equal(LunarMonth.fromYm(2018, 1).getSixtyCycle().toString(), '甲寅');
     }
 
     @test
-    test43() {
+    test43(): void {
         equal(LunarDay.fromYmd(2018, 6, 26).getSixtyCycleDay().getMonth().toString(), '庚申');
     }
 }

@@ -69,6 +69,10 @@ class EventTest {
 
         // 如果没有2月29，则倒推1天
         EventManager.update('公历生日', Event.builder().solarDay(2, 29, -1).startYear(2004).build());
+        // 同公历生日数据
+        EventManager.updateData('生日', '@0WxU_0_o');
+        // 删除生日
+        EventManager.remove('生日');
 
         EventManager.update('农历生日', Event.builder().lunarDay(4, 21, 0).startYear(1986).build());
     }
@@ -95,6 +99,9 @@ class EventTest {
         d = e.getSolarDay(2026);
         ok(d);
         equal(d.toString(), '2026年6月6日');
+
+        e = Event.fromName('生日');
+        ifError(e);
     }
 
     @test

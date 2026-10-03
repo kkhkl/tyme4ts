@@ -5,9 +5,9 @@ import {equal} from 'assert';
 @suite
 class SolarTermTest {
     @test
-    test0() {
+    test0(): void {
         // 冬至在去年，2022-12-22 05:48:11
-        const dongZhi = SolarTerm.fromName(2023, '冬至');
+        const dongZhi: SolarTerm = SolarTerm.fromName(2023, '冬至');
         equal(dongZhi.getName(), '冬至');
         equal(dongZhi.getIndex(), 0);
         // 公历日
@@ -15,21 +15,21 @@ class SolarTermTest {
         equal(dongZhi.getSolarDay().toString(), '2022年12月22日');
 
         // 冬至顺推23次，就是大雪 2023-12-07 17:32:55
-        const daXue = dongZhi.next(23);
+        const daXue: SolarTerm = dongZhi.next(23);
         equal(daXue.getName(), '大雪');
         equal(daXue.getIndex(), 23);
         equal(daXue.getJulianDay().getSolarDay().toString(), '2023年12月7日');
         equal(daXue.getSolarDay().toString(), '2023年12月7日');
 
         // 冬至逆推2次，就是上一年的小雪 2022-11-22 16:20:28
-        const xiaoXue = dongZhi.next(-2);
+        const xiaoXue: SolarTerm = dongZhi.next(-2);
         equal(xiaoXue.getName(), '小雪');
         equal(xiaoXue.getIndex(), 22);
         equal(xiaoXue.getJulianDay().getSolarDay().toString(), '2022年11月22日');
         equal(xiaoXue.getSolarDay().toString(), '2022年11月22日');
 
         // 冬至顺推24次，就是下一个冬至 2023-12-22 11:27:20
-        const dongZhi2 = dongZhi.next(24);
+        const dongZhi2: SolarTerm = dongZhi.next(24);
         equal(dongZhi2.getName(), '冬至');
         equal(dongZhi2.getIndex(), 0);
         equal(dongZhi2.getJulianDay().getSolarDay().toString(), '2023年12月22日');
@@ -37,17 +37,17 @@ class SolarTermTest {
     }
 
     @test
-    test1() {
+    test1(): void {
         // 公历2023年的雨水，2023-02-19 06:34:16
-        const jq = SolarTerm.fromName(2023, '雨水');
+        const jq: SolarTerm = SolarTerm.fromName(2023, '雨水');
         equal(jq.getName(), '雨水');
         equal(jq.getIndex(), 4);
     }
 
     @test
-    test2() {
+    test2(): void {
         // 公历2023年的大雪，2023-12-07 17:32:55
-        const jq = SolarTerm.fromName(2023, '大雪');
+        const jq: SolarTerm = SolarTerm.fromName(2023, '大雪');
         equal(jq.getName(), '大雪');
         // 索引
         equal(jq.getIndex(), 23);
@@ -61,12 +61,12 @@ class SolarTermTest {
     }
 
     @test
-    test3() {
+    test3(): void {
         equal(SolarDay.fromYmd(2023, 10, 10).getTerm().getName(), '寒露');
     }
 
     @test
-    test4() {
+    test4(): void {
         equal(SolarDay.fromYmd(2023, 12, 7).getTermDay().toString(), '大雪第1天');
         equal(SolarDay.fromYmd(2023, 12, 7).getTermDay().getDayIndex(), 0);
 
@@ -77,13 +77,13 @@ class SolarTermTest {
     }
 
     @test
-    test5() {
+    test5(): void {
         equal(SolarTerm.fromName(2024, '小寒').getJulianDay().getSolarTime().toString(), '2024年1月6日 04:49:22');
         equal(SolarTerm.fromName(2024, '小寒').getSolarDay().toString(), '2024年1月6日');
     }
 
     @test
-    test6() {
+    test6(): void {
         equal(SolarTerm.fromName(1034, '寒露').getSolarDay().toString(), '1034年10月1日');
         equal(SolarTerm.fromName(1034, '寒露').getJulianDay().getSolarDay().toString(), '1034年10月3日');
         equal(SolarTerm.fromName(1034, '寒露').getJulianDay().getSolarTime().toString(), '1034年10月3日 06:02:28');

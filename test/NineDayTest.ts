@@ -1,11 +1,11 @@
 import {suite, test} from '@testdeck/mocha';
-import {SolarDay} from '../lib';
+import {Nine, SolarDay} from '../lib';
 import {equal, ifError, ok} from 'assert';
 
 @suite
 class NineDayTest {
     @test
-    test() {
+    test(): void {
         const d = SolarDay.fromYmd(2020, 12, 21).getNineDay();
         ok(d);
         equal(d.getName(), '一九');
@@ -14,7 +14,7 @@ class NineDayTest {
     }
 
     @test
-    test1() {
+    test1(): void {
         const d = SolarDay.fromYmd(2020, 12, 22).getNineDay();
         ok(d);
         equal(d.getName(), '一九');
@@ -23,7 +23,7 @@ class NineDayTest {
     }
 
     @test
-    test2() {
+    test2(): void {
         const d = SolarDay.fromYmd(2020, 1, 7).getNineDay();
         ok(d);
         equal(d.getName(), '二九');
@@ -32,7 +32,7 @@ class NineDayTest {
     }
 
     @test
-    test3() {
+    test3(): void {
         const d = SolarDay.fromYmd(2021, 1, 6).getNineDay();
         ok(d);
         equal(d.getName(), '二九');
@@ -41,7 +41,7 @@ class NineDayTest {
     }
 
     @test
-    test4() {
+    test4(): void {
         const d = SolarDay.fromYmd(2021, 1, 8).getNineDay();
         ok(d);
         equal(d.getName(), '三九');
@@ -50,7 +50,7 @@ class NineDayTest {
     }
 
     @test
-    test5() {
+    test5(): void {
         const d = SolarDay.fromYmd(2021, 3, 5).getNineDay();
         ok(d);
         equal(d.getName(), '九九');
@@ -59,8 +59,13 @@ class NineDayTest {
     }
 
     @test
-    test6() {
+    test6(): void {
         const d = SolarDay.fromYmd(2021, 7, 5).getNineDay();
         ifError(d);
+    }
+
+    @test
+    test7(): void {
+        equal(Nine.fromName('一九').getIndex(), 0);
     }
 }

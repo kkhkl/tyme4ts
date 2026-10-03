@@ -1,17 +1,17 @@
 import {suite, test} from '@testdeck/mocha';
-import {SolarDay} from '../lib';
+import {PlumRain, SolarDay} from '../lib';
 import {equal, ifError, ok} from 'assert';
 
 @suite
 class PlumRainDayTest {
     @test
-    test0() {
+    test0(): void {
         const d = SolarDay.fromYmd(2024, 6, 10).getPlumRainDay();
         ifError(d);
     }
 
     @test
-    test1() {
+    test1(): void {
         const d = SolarDay.fromYmd(2024, 6, 11).getPlumRainDay();
         ok(d);
         equal(d.getName(), '入梅');
@@ -20,7 +20,7 @@ class PlumRainDayTest {
     }
 
     @test
-    test2() {
+    test2(): void {
         const d = SolarDay.fromYmd(2024, 7, 6).getPlumRainDay();
         ok(d);
         equal(d.getName(), '出梅');
@@ -29,11 +29,16 @@ class PlumRainDayTest {
     }
 
     @test
-    test3() {
+    test3(): void {
         const d = SolarDay.fromYmd(2024, 7, 5).getPlumRainDay();
         ok(d);
         equal(d.getName(), '入梅');
         equal(d.getPlumRain().toString(), '入梅');
         equal(d.toString(), '入梅第25天');
+    }
+
+    @test
+    test4(): void {
+        equal(PlumRain.fromName('入梅').getIndex(), 0);
     }
 }
